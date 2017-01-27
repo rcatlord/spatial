@@ -11,7 +11,7 @@ df <- read.csv(textConnection("id,name,long,lat,link
                               8,Dunsop Bridge,-2.519552,53.945733,https://upload.wikimedia.org/wikipedia/commons/4/47/Bridge_over_the_River_Dunsop_-_geograph.org.uk_-_1017617.jpg
                               9,Jubilee Tower,-2.700038,54.009743,https://upload.wikimedia.org/wikipedia/commons/6/6b/The_Jubilee_Tower%2C_near_Lancaster_-_geograph.org.uk_-_14240.jpg
                               10,Lancaster Castle,-2.804987,54.049561,https://upload.wikimedia.org/wikipedia/commons/b/be/Lancaster_castle_and_priory.jpg
-                              "))
+                              11,Gallows Hill,-2.782270,54.045263,https://upload.wikimedia.org/wikipedia/commons/0/05/Lancaster_taken_from_the_Ashton_Memorial_in_Williamson_Park_-_geograph.org.uk_-_197309.jpg"))
 
 points <- data.frame(df$lat, df$long)
 names(points) <- c("X", "Y")
