@@ -103,7 +103,7 @@ map <- mapview::sync(petition_map, referendum_map)
 text <- htmltools::HTML("<h2>Anti-Trump and Pro-Remain - the same?</h2>")
 
 credits <- htmltools::HTML("<small>Contains National Statistics data © Crown copyright and database right [2017] and OS data © Crown copyright and database right [2017].</small>
-                           <br><br>The R code used to create these maps can be found <a href=https://github.com/rcatlord/spatial/blob/master/anti-trump_pro-remain.R.R>here</a>")
+                           <br><br>The R code used to create these maps can be found <a href=https://github.com/rcatlord/spatial/blob/master/anti-trump_pro-remain.R>here</a>")
 
 # final output
 library(htmltools)
