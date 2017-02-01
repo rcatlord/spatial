@@ -18,7 +18,7 @@ petition <- merge(petition, election, by="ons_code") %>%
 
 # constituency boundaries
 library(rgdal)
-url <- "http://geoportal.statistics.gov.uk/datasets/b0f309e493cf4b9ba0d343eebb97b5ee_2.geojson"
+url <- "http://geoportal.statistics.gov.uk/datasets/b0f309e493cf4b9ba0d343eebb97b5ee_3.geojson"
 constituencies <- readOGR(dsn = url, layer = "OGRGeoJSON")
 names(constituencies@data)[2] <- "ons_code"
 constituencies@data <- data.frame(constituencies@data, petition[match(constituencies@data$ons_code, petition$ons_code),])
@@ -61,7 +61,7 @@ referendum <- read.csv(url("http://www.electoralcommission.org.uk/__data/assets/
   select(ons_code = `Area_Code`, Pct_Remain)
 
 # local authority boundaries
-url <- "http://geoportal.statistics.gov.uk/datasets/3943c2114d764294a7c0079c4020d558_2.geojson"
+url <- "http://geoportal.statistics.gov.uk/datasets/3943c2114d764294a7c0079c4020d558_4.geojson"
 local_authorities <- readOGR(dsn = url, layer = "OGRGeoJSON")
 names(local_authorities@data)[2] <- "ons_code"
 local_authorities@data <- data.frame(local_authorities@data, referendum[match(local_authorities@data$ons_code, referendum$ons_code),])
