@@ -1,4 +1,4 @@
-library(tmap) ; library(dplyr)
+library(tmap) ; library(dplyr) ; library(rgdal)
 
 # EU referendum results
 referendum <- read.csv(url("http://www.electoralcommission.org.uk/__data/assets/file/0014/212135/EU-referendum-result-data.csv")) %>% 
