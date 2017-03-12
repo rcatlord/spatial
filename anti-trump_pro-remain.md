@@ -1,3 +1,4 @@
+```r
 ### Anti-Trump and Pro-Remain - the same? ###
 
 ## Trump state visit petition map ##
@@ -115,3 +116,4 @@ browsable(
     tags$div(style = 'height:10%;display:block;', credits)
   ))
 )
+```
