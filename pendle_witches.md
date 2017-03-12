@@ -1,3 +1,4 @@
+```r
 library(sp) ; library(osrm) ; library(leaflet) ; library(htmltools)
 
 df <- read.csv(textConnection("id,name,long,lat,link
@@ -71,4 +72,4 @@ browsable(
     tags$div(style = 'height:10%;display:block;',credits)
   ))
 )
-
+```
