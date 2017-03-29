@@ -36,7 +36,7 @@ leaflet() %>%
             colors = NULL,
             labels = NULL,
             title = htmltools::HTML("<small><a href='http://www.electoralcommission.org.uk/__data/assets/file/0014/212135/EU-referendum-result-data.csv'>Raw data</a> and
-                                    <a href='https://github.com/rcatlord/spatial/blob/master/leavers/leavers.R'>code</a></small>")) %>% 
+                                    <a href='https://github.com/rcatlord/spatial/blob/master/article50/leavers.R'>code</a></small>")) %>% 
   addEasyButton(
     easyButton(
     icon='fa-snowflake-o', title='Reset', position = "topleft",
