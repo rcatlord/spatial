@@ -41,6 +41,6 @@ ni_boundaries <- readOGR(dsn = ni_boundaries, layer = "OGRGeoJSON", verbose = FA
 names(ni_boundaries@data)[1] <- "name"
 names(ni_boundaries@data)[3] <- "code"
 ni_boundaries@data <- data.frame(ni_boundaries@data, ni_results[match(ni_boundaries@data$code, ni_results$code),])
-ni_boundaries@data[c(2,3,4)] <- NULL
+ni_boundaries@data[c(1,2,4,8)] <- NULL
 names(ni_boundaries@data)[2] <- "name"
 geojson_write(ni_boundaries, file = "ni.geojson")
