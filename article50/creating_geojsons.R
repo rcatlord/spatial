@@ -40,7 +40,7 @@ ni_boundaries <- "http://osni.spatial-ni.opendata.arcgis.com/datasets/563dc2ec3d
 ni_boundaries <- readOGR(dsn = ni_boundaries, layer = "OGRGeoJSON", verbose = FALSE)
 names(ni_boundaries@data)[1] <- "name"
 names(ni_boundaries@data)[3] <- "code"
-ni_boundaries@data <- data.frame(ni_boundaries@data, ni_results[match(gb_boundaries@data$code, ni_results$code),])
+ni_boundaries@data <- data.frame(ni_boundaries@data, ni_results[match(ni_boundaries@data$code, ni_results$code),])
 ni_boundaries@data[c(2,3,4)] <- NULL
 names(ni_boundaries@data)[2] <- "name"
 geojson_write(ni_boundaries, file = "ni.geojson")
