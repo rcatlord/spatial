@@ -1,6 +1,6 @@
-library(dplyr) ; library(rgdal) ; library(geojsonio)
+library(dplyr) ; library(rgdal); library(geojsonio)
 
-## Creating GeoJSONs ##
+# Creating geojson
 
 # Great Britain
 gb_results <- read.csv(url("http://www.electoralcommission.org.uk/__data/assets/file/0014/212135/EU-referendum-result-data.csv")) %>% 
@@ -11,8 +11,8 @@ gb_boundaries <- readOGR(dsn = gb_boundaries, layer = "OGRGeoJSON", verbose = FA
 names(gb_boundaries@data)[3] <- "name"
 names(gb_boundaries@data)[2] <- "code"
 
-gb_boundaries@data <- data.frame(gb_boundaries@data, gb_results[match(gb_boundaries@data$code, gb_results$code),])
-gb_boundaries@data[c(2,4,5,6)] <- NULL
+gb_boundaries@data <- left_join(gb_boundaries@data, gb_results, by = c("code", "code"))
+gb_boundaries@data[c(1,4,5,6)] <- NULL
 geojson_write(gb_boundaries, file = "gb.geojson")
 
 # Northern Ireland
@@ -40,7 +40,8 @@ ni_boundaries <- "http://osni.spatial-ni.opendata.arcgis.com/datasets/563dc2ec3d
 ni_boundaries <- readOGR(dsn = ni_boundaries, layer = "OGRGeoJSON", verbose = FALSE)
 names(ni_boundaries@data)[1] <- "name"
 names(ni_boundaries@data)[3] <- "code"
-ni_boundaries@data <- data.frame(ni_boundaries@data, ni_results[match(ni_boundaries@data$code, ni_results$code),])
-ni_boundaries@data[c(1,2,4,8)] <- NULL
+
+ni_boundaries@data <- left_join(ni_boundaries@data, ni_results, by = c("code", "code"))
+ni_boundaries@data[c(1,2,4)] <- NULL
 names(ni_boundaries@data)[2] <- "name"
 geojson_write(ni_boundaries, file = "ni.geojson")
