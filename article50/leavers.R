@@ -4,7 +4,7 @@ uk <- readOGR("uk.geojson", "OGRGeoJSON")
 uk_simplified <- ms_simplify(uk, keep = 0.1)
 
 cities <- data.frame(
-  city = as.character(c("Aberdeen","Aldershot","Barnsley","Basildon","Birkenhead","Birmingham",
+  city = as.character(c("Aberdeen","Aldershot","Barnsley","Basildon","Belfast","Birkenhead","Birmingham",
                         "Blackburn","Blackpool","Bournemouth","Bradford","Brighton","Bristol","Burnley","Cambridge",
                         "Cardiff","Chatham","Coventry","Crawley","Derby","Doncaster","Dundee","Edinburgh",
                         "Exeter","Glasgow","Gloucester","Huddersfield","Hull","Ipswich","Leeds","Leicester",
