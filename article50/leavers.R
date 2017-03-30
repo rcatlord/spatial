@@ -1,6 +1,20 @@
-library(dplyr); library(leaflet) ; library(rgdal)
+library(dplyr); library(leaflet) ; library(rgdal) ; library(rmapshaper) ; library(ggmap)
 
 uk <- readOGR("uk.geojson", "OGRGeoJSON")
+uk_simplified <- ms_simplify(uk, keep = 0.1)
+
+cities <- data.frame(
+  city = as.character(c("Aberdeen","Aldershot","Barnsley","Basildon","Birkenhead","Birmingham",
+                        "Blackburn","Blackpool","Bournemouth","Bradford","Brighton","Bristol","Burnley","Cambridge",
+                        "Cardiff","Chatham","Coventry","Crawley","Derby","Doncaster","Dundee","Edinburgh",
+                        "Exeter","Glasgow","Gloucester","Huddersfield","Hull","Ipswich","Leeds","Leicester",
+                        "Liverpool","London","Luton","Manchester","Mansfield","Middlesbrough","Milton Keynes",
+                        "Newcastle","Newport","Northampton","Norwich","Nottingham","Oxford","Peterborough",
+                        "Plymouth","Portsmouth","Preston","Reading","Sheffield","Slough","Southampton",
+                        "Southend","Stoke","Sunderland","Swansea","Swindon","Telford","Wakefield",
+                        "Warrington","Wigan","Worthing","York")))
+cities <- mutate(cities, address = paste(city, ", United Kingdom", sep = '')) %>% 
+  mutate_geocode(address, source = "google")
 
 bins <- c(0, 29, 39, 49, 59, 69, Inf)
 pal <- colorBin("Blues", domain = uk$Pct_Leave, bins = bins)
@@ -17,12 +31,24 @@ leaflet() %>%
                    options = providerTileOptions(opacity = 0.35)) %>%
   addTiles(urlTemplate = "", 
            attribution = 'Contains National Statistics data © Crown copyright and database right [2017] and OS data © Crown copyright and database right [2017].') %>% 
-  addPolygons(data = uk, fillColor = ~pal(Pct_Leave), weight = 0.5, opacity = 1, color = "white", fillOpacity = 0.8,
+  addPolygons(data = uk_simplified, fillColor = ~pal(Pct_Leave), weight = 0.5, opacity = 1, color = "white", fillOpacity = 0.8,
               highlight = highlightOptions(weight = 3, color = "#FFFF00", fillOpacity = 0.7, bringToFront = TRUE),
               label = labels,
               labelOptions = labelOptions(
                 style = list("font-weight" = "normal", padding = "3px 8px"),
                 textsize = "12px", direction = "auto")) %>% 
+  addCircleMarkers(data = cities, ~lon, ~lat, radius = 4, color = "black", stroke = TRUE, fillColor = "white", fillOpacity = 1, weight = 1,
+                   label = ~city, labelOptions = labelOptions(noHide = T, direction = 'top', offset = c(0, -25), textOnly = TRUE,
+                                                              style=list(
+                                                                'color'='white',
+                                                                'text-shadow'= '0px 1px 1px #000000',
+                                                                'font-family'= 'Helvetica',
+                                                                'font-size' = '10px')),
+                   group = "Cities") %>% 
+  addLayersControl(position = 'topleft',
+                   overlayGroups = "Cities",
+                   options = layersControlOptions(collapsed = FALSE)) %>%
+  hideGroup("Cities") %>% 
   addLegend(position = "bottomleft",
             colors = RColorBrewer::brewer.pal(6, "Blues"),
             labels = c("0-29%", "30-39%", "40-49%", "50-59%", "60-69%", "70% or more"),
@@ -39,5 +65,6 @@ leaflet() %>%
                                     <a href='https://github.com/rcatlord/spatial/blob/master/article50/leavers.R'>code</a></small>")) %>% 
   addEasyButton(
     easyButton(
-    icon='fa-snowflake-o', title='Reset', position = "topleft",
-    onClick=JS("function(btn, map){ map.setView([54.898260, -2.935810], 6);}")))
+      icon='fa-snowflake-o', title='Reset', position = "topleft",
+      onClick=JS("function(btn, map){ map.setView([54.898260, -2.935810], 6);}")))
+
