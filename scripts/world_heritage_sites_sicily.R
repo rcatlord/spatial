@@ -29,6 +29,7 @@ tbl_syracuse <- webpage %>%
   html_table(fill = TRUE) %>% 
   as.data.frame() %>% 
   select(name = Name...Location, Coordinates)
+tbl_syracuse$name <- gsub("\r\n.*$", "", tbl_syracuse$name)
 
 # Isole Eolie (Aeolian Islands)
 webpage <- read_html("http://whc.unesco.org/en/list/908/")
@@ -73,6 +74,7 @@ df <- bind_rows(tbl_baroque, tbl_norman, tbl_syracuse, tbl_aeolian, tbl_agrigent
   separate(Coordinates, c("lat", "long"), sep = "E") %>% 
   mutate(long = as.double(conv_unit(long, from = 'deg_min_sec', to = 'dec_deg')),
          lat = as.double(conv_unit(lat, from = 'deg_min_sec', to = 'dec_deg')))
+# write.csv(df, "world_heritage_sites_sicily.csv")
 
 # Project points
 library(sf)
