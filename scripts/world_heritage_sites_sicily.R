@@ -12,7 +12,6 @@ tbl_baroque <- webpage %>%
   select(name = Name...Location, Coordinates) 
 tbl_baroque$name <- gsub("\r\n.*$", "", tbl_baroque$name)
 
-
 # Arab-Norman Palermo and the Cathedral Churches of Cefalú and Monreale
 webpage <- read_html("http://whc.unesco.org/en/list/1487/multiple=1&unique_number=2048")
 tbl_norman <- webpage %>%
